@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<h>, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <% for (let i =0; i < users.length; i++) { %>
+        <li><%= users[i].name %> <br/>
+            <%= users[i].username %> <br/>
+            <form action="/users/<%=users[i]._id%>?_method=DELETE" method="POST">
+               <input type="submit" value="Delete">
+           </form>
+            <button><a href="/users/<%=users[i]._id%>/edit">Edit</a></button>
+       </li> 
+
+   <% } %>
+ 
+</body>
+</html>
