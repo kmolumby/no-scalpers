@@ -9,9 +9,11 @@ router.get('/', async (req,res) => {
 
     try {
       const allPosts = await Posts.find();
-      res.render("posts/index.ejs", {
-          posts: allPosts
-      })
+      res.json({
+        status: 200,
+        data: allPosts
+      });
+
       console.log(allPosts)
       
     } catch (err) {
@@ -41,20 +43,6 @@ router.get('/', async (req, res) => {
 
 // Show Route to individual post 
 
-router.get('/:id', async (req, res) => {
-    try{
-        const foundPost = await Posts.findById(req.params.id);
-        console.log(foundPost)
-        res.render('posts/show.ejs', {
-            
-            post: foundPost
-        })
-
-    } catch (err) {
-        return err
-    }
-})
-
 
 
 
@@ -80,23 +68,29 @@ router.post('/', async (req,res) => {
 
 // Edit Route to edit existing post
 
-router.get('/:id/edit', async (req, res)=>{
+router.get('/:id', async (req, res)=>{
     foundPost = await Posts.findById(req.params.id);
-    res.render('posts/edit.ejs', {
-        post: foundPost
+    res.json({
+        status: 200,
+        data: foundPost
+     
     })
   });
   
 
 router.put('/:id', async (req,res) => {
     try {
-        const editedPost = await Posts.findByIdAndUpdate(req.params.id, req.body);
-        res.redirect('/posts')
+        const editedPost = await Posts.findByIdAndUpdate(req.params.id, req.body, {new:true});
+        res.json({
+            status: 200,
+            data: editedPost
+          });
 
     } catch (err) {
         return err
     }
 })
+
 
 
 // Delete Route to Delete post
