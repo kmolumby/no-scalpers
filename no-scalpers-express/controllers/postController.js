@@ -20,14 +20,24 @@ router.get('/', async (req,res) => {
 })
 //Get Route to show new post form, will most likely delete when starting react
 
-router.get('/new', async (req,res) => {
-    try {
-        res.render('posts/new.ejs')
 
-    } catch (err) {
-        return err
-    }
-})
+router.get('/', async (req, res) => {
+    console.log(req.body)
+       try  {
+  
+        const allPosts = await Posts.find();
+  
+        res.json({
+          status: 200,
+          data: allPosts
+        });
+  
+      } catch (err){
+  
+        res.send(err)
+  
+      }
+  });
 
 // Show Route to individual post 
 
@@ -56,13 +66,17 @@ router.post('/', async (req,res) => {
     try {
         const createdPost = await Posts.create(req.body);
         console.log(createdPost)
-        res.redirect('/posts')
-        console.log(createdPost)
+        res.json({
+            status: 200, 
+            data: createdPost
+        });
 
     } catch (err) {
         return err
     }
 })
+
+
 
 // Edit Route to edit existing post
 
@@ -90,13 +104,16 @@ router.put('/:id', async (req,res) => {
 router.delete('/:id', async (req,res) => {
     try{
         const deletedPost = await Posts.findByIdAndRemove(req.params.id);
-        res.redirect('/posts')
-
+        res.json({
+            status: 200,
+            data: deletedPost
+          });
     } catch (err) {
         return err
     }
 })
-
+  
+  
 
 
 module.exports = router;
