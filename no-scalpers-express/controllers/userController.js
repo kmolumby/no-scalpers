@@ -9,33 +9,40 @@ router.get('/', async (req,res) => {
 
     try {
       const allUsers = await Users.find();
-      res.render("users/index.ejs", {
-          users: allUsers
+      res.json({
+            status: 200,
+            data: allUsers
       })
       console.log(allUsers, 'getting here')
       
       
     } catch (err) {
-        return err
+        res.json({
+            status: 500,
+            data: err
+        })
     }
 })
 
 
 //New Route for a new user
 
-router.get ('/new', async (req, res) => {
-    try {
-        res.render('users/new.ejs')
-    } catch (err) {
-        return err
-    }
-})
+// router.get ('/new', async (req, res) => {
+//     try {
+//         res.render('users/new.ejs')
+//     } catch (err) {
+//         return err
+//     }
+// })
 
 router.post ('/', async (req, res) => {
     try {
         const createdUser = Users.create(req.body);
         console.log(createdUser)
-        res.redirect('/users')
+        res.json({
+            status: 200,
+            data: createdUser
+      })
 
     } catch (err) {
         return err
@@ -46,9 +53,15 @@ router.post ('/', async (req, res) => {
 router.get ('/:id', async (req, res) => {
     try {
         const foundUser = await Users.findById(req.params.id);
-        res.render("users/show.ejs")
+        res.json({
+            status: 200,
+            data: foundUser
+      })
     }catch (err) {
-        return err
+        res.json({
+            status: 500,
+            data: err
+        })
     }
 })
 
