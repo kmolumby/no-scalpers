@@ -69,8 +69,24 @@ class App extends Component {
       <NavContainer />
    
         
-          { this.state.loggedIn ? <Posts /> : <Login handleRegistration={this.handleRegistration} handleInputs={this.handleInputs} />}
-          < EventContainer />
+          { this.state.loggedIn ? 
+          <div>
+            <Container>
+              <Row>
+                <Col sm="12" md={{ size: 6, offset: 3 }}> 
+                    <Posts /> 
+                </Col>
+              </Row>
+              <Row>
+                <Col sm="12" md={{ size: 6, offset: 3 }}> 
+                 <EventContainer />
+                </Col>
+              </Row>
+            </Container>
+   
+          
+          </div>: <Login handleRegistration={this.handleRegistration} handleInputs={this.handleInputs} />}
+         
           
       </div>
     );

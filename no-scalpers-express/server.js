@@ -45,12 +45,9 @@ app.use('/auth', authController);
 
 
 
-app.get('/', (req,res) => {
-    res.render('index.ejs')
-})
 
 
 app.listen(9000, () => {
-    console.log('listening on port 3000')
+    console.log('listening on port 9000')
 } )
 
