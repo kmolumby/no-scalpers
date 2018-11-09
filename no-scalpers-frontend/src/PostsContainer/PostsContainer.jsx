@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import CreatePost from './CreatePost/CreatePost';
-import PostList from './PostsList/PostsList'
+import PostList from './PostsList/PostsList';
+import { Col, Container, Row} from 'reactstrap';
+import './PostContainer.css';
+
+
 
 class Posts extends Component {
     constructor () {
@@ -134,12 +138,19 @@ class Posts extends Component {
     render() {
 
         return (
-
-            <div>
-                <CreatePost addPost = {this.addPost} />
-                <PostList deletePost = {this.deletePost} posts={this.state.posts}  submitEdit = {this.submitEdit} handleChange = {this.handleChange}/>
-
-            </div>
+            <Container className="post-container">
+                    <Row>
+                        <Col> 
+                            <CreatePost addPost = {this.addPost} />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col className="post-list" > 
+                            <PostList deletePost = {this.deletePost} posts={this.state.posts}  submitEdit = {this.submitEdit} handleChange = {this.handleChange}/>
+                        </Col>
+                    </Row>
+            </Container>
+          
         )
 
     }

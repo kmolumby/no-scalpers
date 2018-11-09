@@ -6,6 +6,11 @@ import NavContainer from './NavContainer/NavContainer'
 import { Col, Container, Row} from 'reactstrap';
 import Login from './Login/Login';
 import {Route, Switch} from 'react-router-dom';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faSearch)
 
 
 const My404 = () => {
@@ -15,6 +20,7 @@ const My404 = () => {
     </div>
     )
 };
+
 
 
 class App extends Component {
@@ -60,33 +66,42 @@ class App extends Component {
     console.log(err, " error")
   }
   }
-  
+
   
    render() {
     return (
       <div className="App">
      
       <NavContainer />
-   
-        
+    
           { this.state.loggedIn ? 
           <div>
+            <Row>
+              
+              
+                  <img src="live-music2.jpeg" className="live-music"/>
+            
+            </Row>
+
             <Container>
               <Row>
-                <Col sm="12" md={{ size: 6, offset: 3 }}> 
-                    <Posts /> 
+                <Col xs="6">
+                  <Posts /> 
+                </Col>                  
+                <Col xs="6">
+                  <EventContainer />
                 </Col>
               </Row>
-              <Row>
-                <Col sm="12" md={{ size: 6, offset: 3 }}> 
-                 <EventContainer />
-                </Col>
-              </Row>
+              
+             
             </Container>
    
           
-          </div>: <Login handleRegistration={this.handleRegistration} handleInputs={this.handleInputs} />}
-         
+          </div>: 
+          
+   
+            <Login handleRegistration={this.handleRegistration} handleInputs={this.handleInputs} />}
+        
           
       </div>
     );

@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import { Form, Label, Button } from "reactstrap";
+import './Login.css'
 
 class Login extends Component {
     render(){
@@ -21,7 +22,7 @@ class Login extends Component {
                 </Form>
                 <div className="spacer"/>
                 <div className="spacer"/>
-                <h2>Register</h2>
+                {/* <h2>Register</h2>
                 <Form onSubmit={this.props.handleRegistration}>
                     <Label>
                         username: 
@@ -34,7 +35,7 @@ class Login extends Component {
                     <br/>
                     <br/>
                     <Button>Submit</Button>
-                </Form>
+                </Form> */}
             </div>
         )
     }

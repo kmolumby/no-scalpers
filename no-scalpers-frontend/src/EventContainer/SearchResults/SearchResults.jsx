@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import './SearchResults.css'
+import './SearchResults.css';
+import { Button, Modal,CardSubtitle, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input, Form, Card, CardTitle, CardText, CardBody} from 'reactstrap';
+
 
 class SearchResults extends Component {
     constructor() {
@@ -20,9 +22,13 @@ class SearchResults extends Component {
             return (
                 <div key={i}>
                     <div>
-                        {searchResult.displayName}<br/>
-                        <a href={searchResult.uri}>Click Here to Learn More</a>
-                    
+                        <Card className="result-card">
+                            <CardBody>
+                                <CardSubtitle >{searchResult.displayName}</CardSubtitle>
+                                <CardSubtitle className="time">{searchResult.start.time}</CardSubtitle>
+                                <Button color="info" href={searchResult.uri}>Click Here to Learn More</Button>
+                            </CardBody>
+                        </Card> 
                     </div>
                 </div>
 
@@ -32,8 +38,7 @@ class SearchResults extends Component {
 
         return (  
 
-            <div >
-                <h1>City Search Results</h1>
+            <div >             
                 <p className="searchResults"><a href=""></a>{searchResults} </p>
             </div>
         )

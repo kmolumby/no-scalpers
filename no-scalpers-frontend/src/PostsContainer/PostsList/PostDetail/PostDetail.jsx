@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input, Form} from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input, Form, Card, CardTitle, CardText, CardBody} from 'reactstrap';
+import './PostDetail.css'
 
 class PostDetail extends Component {
     constructor(props) {
@@ -54,21 +55,25 @@ class PostDetail extends Component {
         return(
 
                 <div key ={this.props.post._id}>
-                    <h3>{this.props.post.title}</h3>
-                    <p>{this.props.post.commentBody}</p>
-                    <Button color="danger" onClick={this.props.deletePost.bind(null, this.props.post._id)}>Delete</Button>
-                    <Button color="success"onClick={this.toggle}>Edit</Button>
+                  
+                    <Card className="post-card">
+                        <CardBody>
+                            <CardTitle className="card-title">{this.props.post.title}</CardTitle>
+                            <CardText>{this.props.post.commentBody}</CardText>
+                            <Button color="danger" onClick={this.props.deletePost.bind(null, this.props.post._id)}>Delete</Button>
+                            <Button color="info" onClick={this.toggle}>Edit</Button>
+                        </CardBody>
+                    </Card>
                      <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-                        <ModalHeader toggle={this.toggle}>Post</ModalHeader>
+                        <ModalHeader toggle={this.toggle}>Edit Post</ModalHeader>
                         <ModalBody>
                             <Form>
                                 <FormGroup>
-                                    <Label for="title">Post Title</Label>
-                                    <Input type="text"  onChange={this.handleChange} name="title" id="title" />
+                                    <Input type="text"  onChange={this.handleChange} name="title" id="title" placeholder= {this.props.post.title}/>
                                 </FormGroup>
                                 <FormGroup>
                                     <Label for="commentBody">Comment</Label>
-                                    <Input type="textarea"  onChange={this.handleChange} name="commentBody" id="commentBody" />
+                                    <Input type="textarea"  onChange={this.handleChange} name="commentBody" id="commentBody" placeholder={this.props.post.commentBody}/>
                                 </FormGroup>
                             </Form>  
                         </ModalBody>

@@ -11,6 +11,7 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem } from 'reactstrap';
+  import './NavContainer.css'
 
 export default class Example extends React.Component {
   constructor(props) {
@@ -29,8 +30,8 @@ export default class Example extends React.Component {
   render() {
     return (
       <div>
-        <Navbar color="light" light expand="md">
-          <NavbarBrand href="/"><img alt="app icon" width="100" heigth="100" src="noscalper-logo.png" /></NavbarBrand>
+        <Navbar color="light" light expand="md" id="navbar">
+          <NavbarBrand href="/"><img alt="app icon" width="80" heigth="80" src="noscalperslogo.png" /></NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
