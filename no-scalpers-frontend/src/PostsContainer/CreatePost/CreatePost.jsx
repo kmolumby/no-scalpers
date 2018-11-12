@@ -50,4 +50,4 @@ class CreatePost extends Component {
     }
 
 }
-export default CreatePost; 
+export default CreatePost;

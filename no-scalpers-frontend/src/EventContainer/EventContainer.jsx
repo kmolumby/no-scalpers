@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import EventList from './EventList/EventList';
 import SearchTerm from './SearchTerm/SearchTerm';
-import SearchResults from './SearchResults/SearchResults'
+import SearchResults from './SearchResults/SearchResults';
+import MapContainer from './GoogleMapContainer/GoogleMapContainer'
 
 class EventContainer extends Component {
     constructor(){
@@ -66,6 +67,7 @@ class EventContainer extends Component {
             <div>
                 <SearchTerm performSearch={this.performSearch}/>
                 <SearchResults searchResults={this.state.searchResults} />
+                <MapContainer searchResults={this.state.searchResults}/>
                 {/* <EventList events= {this.state.events}/>  */}
             </div>
         )

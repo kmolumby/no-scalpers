@@ -6,9 +6,10 @@ import NavContainer from './NavContainer/NavContainer'
 import { Col, Container, Row} from 'reactstrap';
 import Login from './Login/Login';
 import {Route, Switch} from 'react-router-dom';
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { GoogleApiWrapper, InfoWindow, Marker } from 'google-maps-react';
 
 library.add(faSearch)
 
@@ -20,9 +21,6 @@ const My404 = () => {
     </div>
     )
 };
-
-
-
 class App extends Component {
   constructor () {
     super()
@@ -91,6 +89,8 @@ class App extends Component {
                 <Col xs="6">
                   <EventContainer />
                 </Col>
+              </Row>
+              <Row>
               </Row>
               
              
