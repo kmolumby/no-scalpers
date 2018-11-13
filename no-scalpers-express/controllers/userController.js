@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const Users = require("../models/users");
+const bcrypt = require('bcryptjs');
+
 
 
 // Index Route to show users
@@ -35,17 +37,27 @@ router.get('/', async (req,res) => {
 //     }
 // })
 
-router.post ('/', async (req, res) => {
-    try {
-        const createdUser = Users.create(req.body);
-        console.log(createdUser)
+router.post('/', async (req, res)=>{
+    try{
+        console.log("TRYNA REGISTER");
+        console.log(req.body);
+        const bcryptPassword = await bcrypt.hash(req.body.password, 12);
+        const newUser = {
+            username: req.body.username,
+            password: bcryptPassword
+        }
+        const createdUser = await User.create(newUser);
+        req.session.userId = newUser._id;
+        console.log(newUser);
         res.json({
             status: 200,
             data: createdUser
-      })
-
-    } catch (err) {
-        return err
+        })
+    } catch(err){
+        res.json({
+            status: 500,
+            data: err
+        })
     }
 })
 

@@ -5,12 +5,21 @@ const session = require('express-session')
 
 router.post('/login', async (req, res)=>{
     try{
-       const createUser = await User.findOne({username: req.body.username});
+       const foundUser = await User.findOne({username: req.body.username});
         req.session.logged = true;
         req.session.username = req.body.username;
+        const validLogin = await bcrypt.compare(req.body.password, user.password);
+        console.log(validLogin);
+        if(!validLogin){
+            res.json({
+                status: 500,
+                data: "WHOOPS BAD LOGIN"
+            })
+        }
+        req.session.userId = user._id
         res.json({
             status: 200,
-            data: createUser
+            data: user
         });
     }catch(err){
         res.json({

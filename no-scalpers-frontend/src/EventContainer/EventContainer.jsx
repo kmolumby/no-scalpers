@@ -4,12 +4,16 @@ import SearchTerm from './SearchTerm/SearchTerm';
 import SearchResults from './SearchResults/SearchResults';
 import MapContainer from './GoogleMapContainer/GoogleMapContainer'
 
+
 class EventContainer extends Component {
     constructor(){
         super();
         this.state = {
             events: [],
-            searchResults: []
+            searchResults: [],
+            lat: 39.7392,
+            lng: 104.9903
+              
         }
     }
 
@@ -44,12 +48,16 @@ class EventContainer extends Component {
                 const firstLocation = initialSearchResultsJSON.resultsPage.results.location[0].metroArea.id
                 const searchResults = await fetch ('https://api.songkick.com/api/3.0/metro_areas/'+ firstLocation + '/calendar.json?apikey=STzlRsvfup7hHr4s')
                 const searchResultsJSON = await searchResults.json();
-                console.log(searchResultsJSON, '<-- Search Results')
                 // return searchResultsJSON
                 this.setState({
-                    searchResults: searchResultsJSON.resultsPage.results.event
+                    searchResults: searchResultsJSON.resultsPage.results.event,
+                    lat: searchResultsJSON.resultsPage.results.event[0].location.lat,
+                    lng: searchResultsJSON.resultsPage.results.event[0].location.lng
+                    
+                   
                 })
-                console.log(this.state.searchResults , ('results'))
+
+                console.log(this.state, '<--- currentState')
     
             } catch (err) {
                 return err
@@ -57,8 +65,8 @@ class EventContainer extends Component {
       }
 
     
-
-
+      
+     
       
 
 
@@ -67,7 +75,7 @@ class EventContainer extends Component {
             <div>
                 <SearchTerm performSearch={this.performSearch}/>
                 <SearchResults searchResults={this.state.searchResults} />
-                <MapContainer searchResults={this.state.searchResults}/>
+                <MapContainer searchResults={this.state.searchResults} lat={this.state.lat} lng={this.state.lng}/>
                 {/* <EventList events= {this.state.events}/>  */}
             </div>
         )

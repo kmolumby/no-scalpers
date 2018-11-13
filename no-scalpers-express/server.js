@@ -16,6 +16,8 @@ require ('./db/db')
 require('./db/db');
 app.use(session({
     secret: 'keepitsafe',
+    resave: false,
+    saveUninitialized: false
    
   }))
 
