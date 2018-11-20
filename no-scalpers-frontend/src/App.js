@@ -3,7 +3,7 @@ import './App.css';
 import Posts from './PostsContainer/PostsContainer';
 import EventContainer from './EventContainer/EventContainer';
 import NavContainer from './NavContainer/NavContainer'
-import { Col, Container, Row} from 'reactstrap';
+import { Col, Container, Row, Header} from 'reactstrap';
 import Login from './Login/Login';
 import {Route, Switch} from 'react-router-dom';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -11,9 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { GoogleApiWrapper, InfoWindow, Marker } from 'google-maps-react';
 import Cookie from 'js-cookie';
-
-library.add(faSearch)
-
+import HeaderApp from './HeaderContainer/HeaderContainer'
 
 const My404 = () => {
   return (
@@ -31,7 +29,24 @@ class App extends Component {
         password: ""
       }
   }
-  
+
+  getToken = async () => {
+    const token = await fetch('http://localhost:8000/users/getToken/', {
+      method: 'get',
+      credentials: 'include', // this sends our session cookie with our request
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    const tokenResponse = token.json();
+    return tokenResponse;
+  }
+  componentDidMount(){
+    this.getToken()
+    console.log('GOT TOKEN********')
+  }
+
   handleInputs = (e) => {
   this.setState({
     [e.currentTarget.name]: e.currentTarget.value
@@ -103,15 +118,42 @@ class App extends Component {
     }
     }
   
+    logOut = async (e) => {
+      e.preventDefault();
+      console.log('being called')
+      const csrfCookie = Cookie('csrftoken');
+      const loginResponse = await fetch('http://localhost:8000/users/logout/', {
+        method: 'get',
+        credentials: 'include',
+        headers: {
+          'X-CSRFToken': csrfCookie,
+          'Content-Type': 'application/json',
+  
+        },
+      });
+      console.log(loginResponse)
+      const parsedResponse = await loginResponse.json();
+  
+      if(parsedResponse.data === 'logout successful'){
+        // change our component
+        console.log('succes logut')
+       this.setState({
+         loggedIn:false
+       })
+  
+      } else {
+        console.log(parsedResponse.error)
+      }
+    }
   
    render() {
     return (
       <div className="App">
      
-      <NavContainer />
+      <NavContainer logOut ={this.logOut} />
     
           { this.state.loggedIn ? 
-          <div>
+         <div>
             <Row>
               
               

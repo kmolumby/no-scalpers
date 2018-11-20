@@ -12,19 +12,36 @@ class Posts extends Component {
 
         this.state = {
             posts: [],
-            newPost: {
-                "title": "",
-                "commentBody": "",
-                "author": ""
-            }
+            // newPost: {
+            //     "title": "",
+            //     "commentBody": "",
+            //     "author": ""
+            // }
             
         }
     }
 
+    componentDidMount(){
+        this.getToken()
+        console.log('GOT TOKEN********')
+      }
+    
+
+      getToken = async () => {
+        const token = await fetch('http://localhost:8000/users/getToken', {
+          method: 'get',
+          credentials: 'include', // this sends our session cookie with our request
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+    }
+
+
     //get Posts from server
     getPosts = async () => {
         const csrfCookie = Cookie.get('csrftoken');
-        const posts = await fetch('http://localhost:8000/post', {
+        const posts = await fetch('http://localhost:8000/post/', {
             credentials: 'include', 
             headers: {
                 'Content-Type': 'application/json',
@@ -92,12 +109,12 @@ class Posts extends Component {
 
 
     // Delete Post function 
-    deletePost = async (pk) => {
+    deletePost = async (id) => {
         const csrfCookie = Cookie.get('csrftoken');
 
         try {
           
-            const deletedPost = await fetch('http://localhost:8000/post/' + pk, {
+            const deletedPost = await fetch('http://localhost:8000/post/' + id, {
                 method: 'DELETE',
                 credentials: 'include',
                 headers: {
@@ -109,11 +126,12 @@ class Posts extends Component {
 
             const deletedPostJSON = await deletedPost.json();
 
-            this.setState({posts: this.state.posts.filter((post)=> post.pk !== pk)})
+            this.setState({posts: this.state.posts.filter((post)=> post.id !== id)})
 
             console.log(deletedPostJSON)
 
         } catch (err) {
+            console.log(err)
 
         }
         
@@ -129,7 +147,7 @@ class Posts extends Component {
         const csrfCookie = Cookie.get('csrftoken');
         console.log(postToEdit)
             try {
-                const editedPost = await fetch ('http://localhost:8000/post/' + postToEdit._id, {
+                const editedPost = await fetch ('http://localhost:8000/post/' + postToEdit.id +"/", {
                     method: 'PUT', 
                     credentials: 'include',
 
@@ -145,14 +163,15 @@ class Posts extends Component {
 
                     }
                 })
-            
                 const editedPostJSON = await editedPost.json();
         
                 const newPostArrayWithEdited = this.state.posts.map((post) => {
         
-                if(post._id === editedPostJSON.data._id){
+                if(post.id === editedPostJSON.data.id){
                     post = editedPostJSON.data
                 }
+        
+                return post
         
                 return post
                 });
@@ -162,6 +181,7 @@ class Posts extends Component {
                         })
 
             } catch (err) {
+                console.log(err)
                 return err
             }    
         }
