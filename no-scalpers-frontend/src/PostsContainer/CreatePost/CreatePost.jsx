@@ -18,14 +18,14 @@ class CreatePost extends Component {
         })
 
     }
-
+    
     render () {
         return (
 
             <div>
-                <h1>Create a Post</h1>
+                <h1>Post Your Ticket for Sale</h1>
                       <Container>
-                        <Form id="new-post-form" onSubmit={this.props.addPost.bind(null, this.state)}>
+                        <form id="new-post-form" onSubmit={this.props.addPost.bind(null, this.state)}>
                             <Row>
                                 <Col>
                                     <FormGroup>
@@ -43,7 +43,7 @@ class CreatePost extends Component {
                                 </Col>
                             </Row>            
                         <Button input type="submit" value="Submit">Submit</Button>
-                     </Form>           
+                     </form>           
                  </Container>  
             </div>
         )

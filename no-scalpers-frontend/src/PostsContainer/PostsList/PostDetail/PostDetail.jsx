@@ -12,13 +12,15 @@ class PostDetail extends Component {
             postToEdit: {
                 title: props.post.title,
                 commentBody: props.post.commentBody,
-                _id: props.post._id
+                _id: props.post._id,
+                author: props.post.author
               },
 
         }
+        
         this.toggle = this.toggle.bind(this);
     }
-
+  
 
     toggle() {
     this.setState({
@@ -52,6 +54,7 @@ class PostDetail extends Component {
     }
 
     render() {
+        console.log(this.props, '<---this.props')
         return(
 
                 <div key ={this.props.post._id}>
@@ -60,7 +63,7 @@ class PostDetail extends Component {
                         <CardBody>
                             <CardTitle className="card-title">{this.props.post.title}</CardTitle>
                             <CardText>{this.props.post.commentBody}</CardText>
-                            <Button color="danger" onClick={this.props.deletePost.bind(null, this.props.post._id)}>Delete</Button>
+                            <Button color="danger" onClick={this.props.deletePost.bind(null, this.props.post.pk)}>Delete</Button>
                             <Button color="info" onClick={this.toggle}>Edit</Button>
                         </CardBody>
                     </Card>

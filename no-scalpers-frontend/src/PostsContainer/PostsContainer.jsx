@@ -3,7 +3,7 @@ import CreatePost from './CreatePost/CreatePost';
 import PostList from './PostsList/PostsList';
 import { Col, Container, Row} from 'reactstrap';
 import './PostContainer.css';
-
+import Cookie from 'js-cookie'
 
 
 class Posts extends Component {
@@ -12,13 +12,27 @@ class Posts extends Component {
 
         this.state = {
             posts: [],
+            newPost: {
+                "title": "",
+                "commentBody": "",
+                "author": ""
+            }
             
         }
     }
 
     //get Posts from server
     getPosts = async () => {
-        const posts = await fetch('http://localhost:9000/posts');
+        const csrfCookie = Cookie.get('csrftoken');
+        const posts = await fetch('http://localhost:8000/post', {
+            credentials: 'include', 
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfCookie
+              }
+          
+        });
+       
         const postsJSON = await posts.json();
         return postsJSON
       }
@@ -42,26 +56,32 @@ class Posts extends Component {
         e.preventDefault();
         console.log(post);
 
+        const csrfCookie = Cookie.get('csrftoken')
+
         try {
-
-
-              const createdPost = await fetch('http://localhost:9000/posts/', {
+;
+              const createdPost = await fetch('http://localhost:8000/post/', {
               method: 'POST',
               body: JSON.stringify(post),
+              credentials: 'include',
               headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfCookie
               }
-            });
-      
-            const parsedPost = await createdPost.json();
-            console.log(parsedPost)
 
-            if(parsedPost.status === 200){
+            });
+            const parsedPost = await createdPost.json();
+
+            console.log(parsedPost, "<----this is parsed post")
+            console.log(parsedPost.status, "<---parsed post status")
+
+            if(createdPost.status === 200){
                 this.setState({
                     posts: [...this.state.posts, parsedPost.data]
                 })
             }
         
+            console.log('getting here')
 
           
         } catch (err) {
@@ -72,16 +92,24 @@ class Posts extends Component {
 
 
     // Delete Post function 
-    deletePost = async (id) => {
+    deletePost = async (pk) => {
+        const csrfCookie = Cookie.get('csrftoken');
 
         try {
-            const deletedPost = await fetch('http://localhost:9000/posts/' + id, {
-                method: 'DELETE'
+          
+            const deletedPost = await fetch('http://localhost:8000/post/' + pk, {
+                method: 'DELETE',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfCookie
+                  }
+    
             });
 
             const deletedPostJSON = await deletedPost.json();
 
-            this.setState({posts: this.state.posts.filter((post)=> post._id !== id)})
+            this.setState({posts: this.state.posts.filter((post)=> post.pk !== pk)})
 
             console.log(deletedPostJSON)
 
@@ -98,10 +126,13 @@ class Posts extends Component {
   
     
     submitEdit = async (postToEdit) => {
+        const csrfCookie = Cookie.get('csrftoken');
         console.log(postToEdit)
             try {
-                const editedPost = await fetch ('http://localhost:9000/posts/' + postToEdit._id, {
+                const editedPost = await fetch ('http://localhost:8000/post/' + postToEdit._id, {
                     method: 'PUT', 
+                    credentials: 'include',
+
                     body: JSON.stringify({
 
                         title: postToEdit.title,
@@ -109,7 +140,8 @@ class Posts extends Component {
 
                     }),
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfCookie
 
                     }
                 })
@@ -139,16 +171,17 @@ class Posts extends Component {
 
         return (
             <Container className="post-container">
-                    <Row>
-                        <Col> 
-                            <CreatePost addPost = {this.addPost} />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col className="post-list" > 
-                            <PostList deletePost = {this.deletePost} posts={this.state.posts}  submitEdit = {this.submitEdit} handleChange = {this.handleChange}/>
-                        </Col>
-                    </Row>
+                <Row>
+                    <Col >  
+                      <CreatePost username = {this.props.username} addPost = {this.addPost} />
+                    </Col>
+                    <Col className="post-list"> 
+                        <h1>Recent Ticket Posts</h1>
+                        <PostList  username = {this.props.username} deletePost = {this.deletePost} posts={this.state.posts} submitEdit = {this.submitEdit} handleChange = {this.handleChange}/>
+                    </Col>
+
+             </Row>
+                       
             </Container>
           
         )

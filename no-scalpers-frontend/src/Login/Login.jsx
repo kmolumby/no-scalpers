@@ -8,7 +8,7 @@ class Login extends Component {
             <div>
              
                 <h2>Login</h2>
-                <Form onSubmit={this.props.handleRegistration}>
+                <Form onSubmit={this.props.handleLogin}>
                     <Label>
                         username: 
                         <input type="text" name="username" onChange={this.props.handleInputs} />
@@ -22,7 +22,7 @@ class Login extends Component {
                 </Form>
                 <div className="spacer"/>
                 <div className="spacer"/>
-                {/* <h2>Register</h2>
+                <h2>Register</h2>
                 <Form onSubmit={this.props.handleRegistration}>
                     <Label>
                         username: 
@@ -35,7 +35,7 @@ class Login extends Component {
                     <br/>
                     <br/>
                     <Button>Submit</Button>
-                </Form> */}
+                </Form>
             </div>
         )
     }

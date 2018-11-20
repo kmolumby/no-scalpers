@@ -2,7 +2,10 @@ import React, {Component} from 'react';
 import EventList from './EventList/EventList';
 import SearchTerm from './SearchTerm/SearchTerm';
 import SearchResults from './SearchResults/SearchResults';
-import MapContainer from './GoogleMapContainer/GoogleMapContainer'
+import MapContainer from './GoogleMapContainer/GoogleMapContainer';
+import { Col, Container, Row} from 'reactstrap';
+import './EventContainer.css'
+
 
 
 class EventContainer extends Component {
@@ -72,12 +75,26 @@ class EventContainer extends Component {
 
     render() {
         return(
-            <div>
-                <SearchTerm performSearch={this.performSearch}/>
-                <SearchResults searchResults={this.state.searchResults} />
-                <MapContainer searchResults={this.state.searchResults} lat={this.state.lat} lng={this.state.lng}/>
-                {/* <EventList events= {this.state.events}/>  */}
-            </div>
+          
+                <Container className="event-container">
+                            <Col sm="12" md={{ size: 6, offset: 3 }}>
+                                <SearchTerm performSearch={this.performSearch}/>
+                            </Col>
+                            <Row>
+                             <Col xs="6" className="search-results" > 
+                                <SearchResults searchResults={this.state.searchResults} />
+                             </Col>
+                             <Col xs="6" className="map-container">
+                                 <MapContainer  searchResults={this.state.searchResults} lat={this.state.lat} lng={this.state.lng}/>
+                             </Col>
+                            </Row>
+                       
+                        
+                   
+                            
+                </Container>
+                
+          
         )
     }
 }

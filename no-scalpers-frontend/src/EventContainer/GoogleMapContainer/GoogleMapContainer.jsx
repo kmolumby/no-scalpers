@@ -17,9 +17,8 @@ export class MapContainer extends Component {
       };
     }
     
-    onMarkerClick = (searchResult, marker, e) => {
+    onMarkerClick = (props, marker, e) => {
         this.setState({
-        selectedPlace: searchResult,
         activeMarker: marker,
         showingInfoWindow: true
       });
@@ -54,7 +53,7 @@ export class MapContainer extends Component {
       <Map
         google={this.props.google}
         style={mapStyles}
-        defaultZoom={14}
+        defaultZoom={6}
         center={{
           lat: this.props.lat,
           lng: this.props.lng
@@ -70,6 +69,7 @@ export class MapContainer extends Component {
           onClose={this.onClose}
         >
           <div>
+            <p></p>
           </div>
         </InfoWindow>
        {allSearchResults}
