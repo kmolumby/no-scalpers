@@ -69,11 +69,11 @@ class App extends Component {
       } 
     });
     const createdUserJSON = await createdUser.json();
-    if(createdUserJSON.status == 200){
+    if(createdUser.status == 200){
       this.setState({
         loggedIn: true,
-        username: createdUserJSON.data.username,
-        password: createdUserJSON.data.password
+        username: createdUser.username,
+        password: createdUser.password
       })
       console.log(this.state.username, "<---- username bro")
     } else if (createdUserJSON.status == 500){
@@ -102,7 +102,8 @@ class App extends Component {
       console.log(foundUser , "Getting here")
       const foundUserJSON = await foundUser.json();
       console.log(foundUserJSON, ' this is found user')
-      if(foundUser.status == 200){
+      console.log(foundUserJSON.data, "<----foundUser.data")
+      if(foundUserJSON.data == "login successful"){
         this.setState({
           loggedIn: true,
           username: this.state.username,
@@ -154,10 +155,12 @@ class App extends Component {
     
           { this.state.loggedIn ? 
          <div>
-            <Row>
+            <Row className="background-image">
               
               
-                  <img src="live-music2.jpeg" className="live-music"/>
+
+                <h1 className="noscalpers">NOSCALPERS</h1>
+              
             
             </Row>
 
@@ -174,7 +177,7 @@ class App extends Component {
           </div>: 
           
    
-            <Login handleRegistration={this.handleRegistration} handleInputs={this.handleInputs} handleLogin={this.handleLogin}/>}
+            <Login className="login-page" handleRegistration={this.handleRegistration} handleInputs={this.handleInputs} handleLogin={this.handleLogin}/>}
         
           
       </div>

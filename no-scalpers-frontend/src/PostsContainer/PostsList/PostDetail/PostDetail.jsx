@@ -62,7 +62,7 @@ class PostDetail extends Component {
                         <CardBody>
                             <CardTitle className="card-title">{this.props.post.title}</CardTitle>
                             <CardText>{this.props.post.commentBody}</CardText>
-                            <CardText>Created by: {this.props.post.author_id.username}</CardText>
+                            <CardText>Created by: {this.props.post.author}</CardText>
                             <Button color="danger" onClick={this.props.deletePost.bind(null, this.props.post.id)}>Delete</Button>
                             <Button color="info" onClick={this.toggle}>Edit</Button>
                         </CardBody>

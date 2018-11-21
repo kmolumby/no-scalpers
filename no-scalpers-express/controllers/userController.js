@@ -46,9 +46,9 @@ router.post('/', async (req, res)=>{
             username: req.body.username,
             password: bcryptPassword
         }
-        const createdUser = await User.create(newUser);
+        const createdUser = await Users.create(newUser);
         req.session.userId = newUser._id;
-        console.log(newUser);
+        console.log(newUser, "<---New User");
         res.json({
             status: 200,
             data: createdUser

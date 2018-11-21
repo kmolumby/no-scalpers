@@ -17,7 +17,7 @@ require('./db/db');
 app.use(session({
     secret: 'keepitsafe',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
    
   }))
 
@@ -27,10 +27,7 @@ app.use(methodOverride("_method"));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-
-
-
-
+//cors
 
 const corsOptions = {
     origin: 'http://localhost:3000',
@@ -38,6 +35,7 @@ const corsOptions = {
     optionsSuccessStatus: 200 
   }
   app.use(cors(corsOptions));
+
 
 
 app.use('/users', userController);

@@ -6,3 +6,30 @@
     background-repeat: no-repeat;
   margin-bottom: 5em;
 } */
+
+/* .login-card {
+  padding: 2rem;
+} */
+
+.login-inputs {
+ 
+  padding: .5rem 9rem;
+}
+
+.login-forms {
+  margin-top: 1rem;
+}
+
+.card {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  background-color: #ffffff8e!important;
+}
+
+legend {
+  margin-bottom: 0 !important;
+}
+
+.btn-secondary {
+    background-color: #02085A!important;
+}

@@ -21,10 +21,6 @@ class Posts extends Component {
         }
     }
 
-    componentDidMount(){
-        this.getToken()
-        console.log('GOT TOKEN********')
-      }
     
 
       getToken = async () => {
@@ -56,6 +52,8 @@ class Posts extends Component {
 
     // Component Did Mount Check
       componentDidMount(){
+          this.getToken()
+        console.log('GOT TOKEN********')
         this.getPosts().then((posts) => {
           this.setState({posts: posts.data})
 

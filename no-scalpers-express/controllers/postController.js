@@ -8,7 +8,7 @@ const Posts = require("../models/posts");
 router.get('/', async (req,res) => {
 
     try {
-      const allPosts = await Posts.find();
+      const allPosts = await Posts.find({}).populate('author');
       res.json({
         status: 200,
         data: allPosts
@@ -50,18 +50,35 @@ router.get('/', async (req, res) => {
 
 //Post Route to create a new post
 
-router.post('/', async (req,res) => {
-    try {
-        const createdPost = await Posts.create(req.body);
-        console.log(createdPost)
-        res.json({
-            status: 200, 
-            data: createdPost
-        });
+router.post('/', async (req, res)=>{
+    try{
+        // console.log(req.session.username)
+        // console.log(req.session.userId)
+        // console.log(req.body, 'this is req.body');
+        const newPost = {
+            title: req.body.title,
+            commentBody: req.body.commentBody,
+            author: req.session.userId
+        }
+        // console.log(newPost, "this is the new post")
 
-    } catch (err) {
-        return err
+        const newpost = await Posts.create(newPost);
+        const postWithAuthor = await newpost.populate('author')
+
+        // console.log(postWithAuthor, '<---- this is the newPost with author')
+
+        res.json({
+            data: postWithAuthor,
+            status: 200})
+    }catch(err){
+        console.log(err)
+        res.json({
+
+            data: err,
+            status: 500
+        })
     }
+
 })
 
 

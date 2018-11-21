@@ -18,7 +18,7 @@ class Posts(View):
             # print(request.user, "request.user")
             user = User.objects.get(id=request.user.id)
             # print(user, "----user", dir(user))
-            post_list = list(user.posts.all().values())
+            post_list = list(Post.objects.values())
 
             return JsonResponse({
                 'Content-Type': 'application/json',
@@ -43,7 +43,7 @@ class Posts(View):
             new_post = Post.objects.create(title=data["title"], author=request.user, commentBody=data["commentBody"])
             print(new_post, "this is new post")
 
-            # new_post.author = request.user
+            new_post.author = request.user
             new_post.save()
             data["id"] = new_post.id
             print(data, "<----this is the data")

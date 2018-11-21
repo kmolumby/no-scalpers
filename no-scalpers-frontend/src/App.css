@@ -1,4 +1,9 @@
-.App {
+@import url('https://fonts.googleapis.com/css?family=Alegreya');
+body > #root > div {
+  height: 100vh;
+}
+ 
+ .App {
   text-align: center;
 }
 
@@ -37,3 +42,31 @@
   margin-bottom: 5em;
 }
 
+.background-image {
+  background: linear-gradient(rgba(3, 0, 27, 0.87), rgba(218, 33, 135, 0.904)), url("../src/images/live-music2.jpeg");
+  background-blend-mode: color;
+
+  background-size: cover;
+  height: 300px;
+}
+
+.noscalpers {
+    padding-top: .4em;
+    float: none;
+    margin: 0 auto;
+    font-family: 'Alegreya', serif;
+    font-size: 120px;
+    font-weight: 900;
+    color: #02085A!important;
+   
+
+}
+
+.login-page {
+  background: linear-gradient(rgba(3, 0, 27, 0.87), rgba(218, 33, 135, 0.904)),url("../src/images/live-music2.jpeg");
+  background-blend-mode: color;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  padding-top: 6em;
+}
