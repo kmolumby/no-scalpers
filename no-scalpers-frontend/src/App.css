@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Alegreya');
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
 body > #root > div {
   height: 100vh;
 }
@@ -54,7 +54,7 @@ body > #root > div {
     padding-top: .4em;
     float: none;
     margin: 0 auto;
-    font-family: 'Alegreya', serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 120px;
     font-weight: 900;
     color: #02085A!important;
