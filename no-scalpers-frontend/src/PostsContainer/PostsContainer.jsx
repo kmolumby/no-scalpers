@@ -189,15 +189,29 @@ class Posts extends Component {
 
         return (
             <Container className="post-container">
-                <Row>
-                    <Col >  
-                      <CreatePost username = {this.props.username} addPost = {this.addPost} />
+                <Col className="welcome">
+                
+                    <Row className="justify-content-center">
+                        <h1>Welcome to NoScalpers</h1>
+                    </Row>
+                    <Row className="justify-content-center">
+                        <p>NoScalpers is an online platform that seeks to take back the power from third party ticketing sales<br/>
+                        and help music lover buy and sell tickets for face value. </p>
+                    </Row>
+                
+                </Col>
+               
+                <Row className="post-content">
+                    <Col xs="5">  
+                        <h1>Create a Post</h1>
+                        <CreatePost username = {this.props.username} addPost = {this.addPost} />
                     </Col>
-                    <Col className="post-list"> 
+                    <Col xs="7" className="post-list-container"> 
                         <h1>Recent Ticket Posts</h1>
-                        <PostList  username = {this.props.username} deletePost = {this.deletePost} posts={this.state.posts} submitEdit = {this.submitEdit} handleChange = {this.handleChange}/>
+                        <div className="post-list">
+                            <PostList  username = {this.props.username} deletePost = {this.deletePost} posts={this.state.posts} submitEdit = {this.submitEdit} handleChange = {this.handleChange}/>
+                        </div>
                     </Col>
-
              </Row>
                        
             </Container>

@@ -5,7 +5,7 @@ import EventContainer from './EventContainer/EventContainer';
 import NavContainer from './NavContainer/NavContainer'
 import { Col, Container, Row, Header} from 'reactstrap';
 import Login from './Login/Login';
-import {Route, Switch} from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -156,23 +156,22 @@ class App extends Component {
           { this.state.loggedIn ? 
          <div>
             <Row className="background-image">
-              
-              
-
                 <h1 className="noscalpers">NOSCALPERS</h1>
-              
-            
             </Row>
-
-            <Container>
-              <Row>
-                  <Posts username = {this.state.username} /> 
-                </Row>  
-                <Row> 
-                    <EventContainer />
-                </Row>
-            </Container>
-   
+          <div className="posts">
+              <Container  className="posts container-fluid">
+                <Row>
+                    <Posts username = {this.state.username}/> 
+                  </Row> 
+              </Container>
+          </div>
+              <Container> 
+                  <Row> 
+                      <EventContainer />
+                  </Row>
+              </Container>
+          
+          
           
           </div>: 
           
@@ -185,4 +184,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);
