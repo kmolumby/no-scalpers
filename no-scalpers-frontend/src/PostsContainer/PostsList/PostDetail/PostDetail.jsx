@@ -57,8 +57,12 @@ class PostDetail extends Component {
         return(
 
                 <div key ={this.props.post.id}>
+                     
+                        
+                  
                   
                     <Card className="post-card">
+                     
                         <CardBody>
                             <CardTitle className="card-title">{this.props.post.title}</CardTitle>
                             <CardText>{this.props.post.commentBody}</CardText>
@@ -85,8 +89,8 @@ class PostDetail extends Component {
                             <Button color="secondary" onClick={this.toggle}>Cancel</Button>
                         </ModalFooter>
                     </Modal>
-                 </div>      
-        )
+                </div>      
+        ) 
     }
 
 
